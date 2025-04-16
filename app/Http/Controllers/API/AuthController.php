@@ -74,7 +74,7 @@ class AuthController extends Controller
     {
         try {
             //code...
-            $user = auth()->guard('api')->user();
+            $user = auth('api')->user()->employee;
             return response()->json([
                 'message' => 'Fetch Profile user success',
                 'user' => $user,
@@ -84,28 +84,4 @@ class AuthController extends Controller
             return response()->json(['error' => $th->getMessage()], 500);
         }
     }
-
-    // public function getUser()
-    // {
-    //     try {
-    //         $user = Auth::user();
-    //         if (!$user) {
-    //             return response()->json(['error' => 'User not found'], 404);
-    //         }
-    //         return response()->json($user);
-    //     } catch (JWTException $e) {
-    //         return response()->json(['error' => 'Failed to fetch user profile'], 500);
-    //     }
-    // }
-
-    // public function updateUser(Request $request)
-    // {
-    //     try {
-    //         $user = Auth::user();
-    //         $user->update($request->only(['name', 'email']));
-    //         return response()->json($user);
-    //     } catch (JWTException $e) {
-    //         return response()->json(['error' => 'Failed to update user'], 500);
-    //     }
-    // }
 }

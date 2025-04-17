@@ -14,6 +14,7 @@ class Employees extends Model
         'address',
         'is_active',
         'gender',
+        'position',
     ];
 
     protected $appends = ['gender_label', 'is_active_label'];

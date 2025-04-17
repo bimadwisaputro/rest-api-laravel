@@ -37,6 +37,7 @@ class EmployeeController extends Controller
                 'address' => $request->address,
                 'is_active' => $request->is_active,
                 'gender' => $request->gender,
+                'position' => $request->position,
             ]);
 
             return response()->json(['success' => true, 'message' => 'Employee added success.', 'data' => $employees], 200);
@@ -68,6 +69,7 @@ class EmployeeController extends Controller
             'address' => $request->address,
             'is_active' => $request->is_active,
             'gender' => $request->gender,
+            'position' => $request->position,
         ];
 
         $validate = Validator::make($request->all(), [
@@ -93,6 +95,16 @@ class EmployeeController extends Controller
         try {
             $employees = Employees::find($id);
             $employees->delete();
+            return response()->json(['success' => true, 'message' => 'Employee Deleted success.', 'data' => $employees], 200);
+        } catch (\Throwable $th) {
+            Log::error('Failed to fetch data employees: ' . $th->getMessage());
+            return response()->json(['success' => false, 'message' => $th->getMessage()], 500);
+        }
+    }
+    public function deletedata(string $id)
+    {
+        try {
+            $employees = Employees::find($id)->delete();
             return response()->json(['success' => true, 'message' => 'Employee Deleted success.', 'data' => $employees], 200);
         } catch (\Throwable $th) {
             Log::error('Failed to fetch data employees: ' . $th->getMessage());
